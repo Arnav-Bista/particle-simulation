@@ -3,7 +3,6 @@ use std::ops::Range;
 use rand::Rng;
 
 
-#[derive(Debug)]
 pub struct Vec2 {
     pub x: f32,
     pub y: f32
@@ -31,7 +30,7 @@ impl Vec2 {
     }
 
     pub fn get_angle(&self) -> f32 {
-        (self.x / self.y).tan()
+        (self.y / self.x).atan()
     }
 }
 

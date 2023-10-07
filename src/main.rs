@@ -69,8 +69,8 @@ fn view(app: &App, _model: &Model, frame: Frame) {
     for gravity_particle in _model.gravity_particles() {
         let particle = gravity_particle.particle();
         draw.ellipse().color(BLUE)
-            .w(2.0)
-            .h(2.0)
+            .w(10.0)
+            .h(10.0)
             .x(particle.position().x)
             .y(particle.position().y);
     }
@@ -80,20 +80,26 @@ fn view(app: &App, _model: &Model, frame: Frame) {
 }
 
 fn mouse_pressed(app: &App, model: &mut Model, mouse: MouseButton) {
-    match mouse {
-        MouseButton::Left => model.add_gravity_particle(
-            0.0,
-            0.0
-            // app.mouse.x,
-            // app.mouse.y
-        ),
-        _ => ()
-    }
+    // match mouse {
+        // MouseButton::Left => model.add_gravity_particle(
+        //     // 0.0,
+        //     // 0.0
+        //     app.mouse.x,
+        //     app.mouse.y
+        // ),
+        // _ => ()
+    // }
 }
 
 fn key_pressed(app: &App, model: &mut Model, key: Key) {
     match key {
-        Key::A => model.add_regular_particles(1),
+        Key::A => model.add_regular_particles(10),
+        Key::D =>  model.add_gravity_particle(
+            // 0.0,
+            // 0.0
+            app.mouse.x,
+            app.mouse.y
+        ),
         _ => () 
     }
 }

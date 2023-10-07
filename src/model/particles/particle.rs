@@ -1,4 +1,4 @@
-use crate::{model::vectors::{vec2::Vec2, quantity_vector::QuantityVector}, constants::MAX_VELOCITY};
+use crate::model::vectors::{vec2::Vec2, quantity_vector::QuantityVector};
 use std::ops::Range;
 
 
@@ -48,18 +48,16 @@ impl Particle {
 
     pub fn apply_force(&mut self, force: &QuantityVector) {
         // velocity = force / mass
-        if force.magnitude() > MAX_VELOCITY {
-            self.velocity = QuantityVector::from_angle(MAX_VELOCITY / self.mass, force.angle());
-        }
-        else {
-            self.velocity = QuantityVector::from_angle(force.magnitude() / self.mass, force.angle());
-        }
+        // self.velocity = QuantityVector::new();
+        self.velocity.set_x(force.x());
+        self.velocity.set_y(force.y());
+        self.velocity.clean();
+        // self.velocity = *force;
     }
 
     pub fn update(&mut self) {
-        // S = V * t
+        // S = V * t * t
         // let each frame be 1
-        println!("V: {} {}", self.velocity.x(), self.velocity.y());
         self.position.x += self.velocity.x();
         self.position.y += self.velocity.y();
     }

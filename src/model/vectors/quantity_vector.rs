@@ -1,6 +1,5 @@
 use super::vec2::Vec2;
 
-
 pub struct QuantityVector {
     vector: Vec2,
     magnitude: f32,

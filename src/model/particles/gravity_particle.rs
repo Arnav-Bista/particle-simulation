@@ -27,9 +27,9 @@ impl GravityParticle {
         let angle = r.get_angle();
         let numerator = G * self.particle.mass() * particle.mass();
         let mut denomerator = r.get_magnitude().powi(2);
-        // if denomerator < 10.0 {
-        //     denomerator = 10.0;
-        // }
+        if denomerator < 100.0 {
+            denomerator = 100.0;
+        }
         QuantityVector::from_angle(-1.0 * numerator / denomerator, angle)
     }
 }
