@@ -1,5 +1,6 @@
 use crate::constants::G;
 use crate::model::vectors::quantity_vector::QuantityVector;
+use crate::model::vectors::vec2::Vec2;
 
 use super::particle::Particle;
 
@@ -22,14 +23,12 @@ impl GravityParticle {
     }
 
     pub fn calculate_force(&self, particle: &Particle) -> QuantityVector {
-        // F = -Gm1m2 / r^2
+        // F = Gm1m2 / r^2
         let r = self.particle.position() - particle.position();
+        let numerator =  G * self.particle.mass() * particle.mass();
         let angle = r.get_angle();
-        let numerator = G * self.particle.mass() * particle.mass();
-        let mut denomerator = r.get_magnitude().powi(2);
-        if denomerator < 100.0 {
-            denomerator = 100.0;
-        }
-        QuantityVector::from_angle(-1.0 * numerator / denomerator, angle)
+        let denomerator = r.get_magnitude().powi(2);
+        println!("{}",angle);
+        QuantityVector::from_angle(numerator / denomerator, angle)
     }
 }

@@ -30,7 +30,18 @@ impl Vec2 {
     }
 
     pub fn get_angle(&self) -> f32 {
-        (self.y / self.x).atan()
+        let acute_angle = (self.y / self.x).atan();
+        if self.x >= 0.0 {
+            if self.y >= 0.0 {
+                return acute_angle;
+            }
+            return acute_angle * -1.0;
+        }
+        
+        if self.y >= 0.0 {
+            return std::f32::consts::PI - acute_angle;
+        }
+        return std::f32::consts::PI + acute_angle;
     }
 }
 

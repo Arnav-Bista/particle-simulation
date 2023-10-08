@@ -87,7 +87,7 @@ impl std::ops::Add for &QuantityVector {
     type Output = QuantityVector;
 
     fn add(self, rhs: Self) -> Self::Output {
-        QuantityVector::from_vec2_dirty(
+        QuantityVector::from_vec2(
             &self.vector + &rhs.vector
         )
     }
@@ -97,7 +97,7 @@ impl std::ops::Sub for &QuantityVector {
     type Output = QuantityVector;
 
     fn sub(self, rhs: Self) -> Self::Output {
-        QuantityVector::from_vec2_dirty(
+        QuantityVector::from_vec2(
             &self.vector - &rhs.vector
         )
     }
