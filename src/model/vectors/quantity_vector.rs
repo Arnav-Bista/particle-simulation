@@ -1,3 +1,5 @@
+use std::ops::Range;
+
 use super::vec2::Vec2;
 
 pub struct QuantityVector {
@@ -14,6 +16,17 @@ impl QuantityVector {
             vector: Vec2::new(0.0, 0.0),
             magnitude: 0.0,
             angle: 0.0
+        }
+    }
+
+    pub fn new_random(x_range: &Range<f32>, y_range: &Range<f32>) -> Self {
+        let vec = Vec2::new_random(x_range, y_range);
+        println!("VECTORRR");
+        println!("{} {}", vec.x, vec.y);
+        Self {
+            magnitude: vec.get_magnitude(),
+            angle: vec.get_angle(),
+            vector: vec,
         }
     }
 
@@ -102,3 +115,19 @@ impl std::ops::Sub for &QuantityVector {
         )
     }
 }
+
+// impl std::ops::Mul for &QuantityVector {
+//     type Output = QuantityVector;
+//
+//     fn mul(self, rhs: f32) -> Self::Output {
+//         QuantityVector::from_vec2(
+//             Vec2 {
+//                 x: self.x() * rhs,
+//                 y: self.y() * rhs
+//             }
+//         )
+//         // QuantityVector::from_vec2(
+//         //     &self.vector - &rhs.vector
+//         // )
+//     }
+// }

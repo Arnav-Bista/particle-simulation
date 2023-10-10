@@ -36,7 +36,7 @@ fn update(_app: &App, _model: &mut Model, _update: Update) {
     // calculate the net force per regular particle
     let mut resultant_force: Vec<QuantityVector> = Vec::with_capacity(_model.regular_particles().len());
     for regular_particle in _model.regular_particles() {
-        let mut force = QuantityVector::new();
+        let mut force = regular_particle.get_force();
         for gravity_particles in _model.gravity_particles() {
             force = &force + &gravity_particles.calculate_force(regular_particle);
         }
@@ -45,9 +45,11 @@ fn update(_app: &App, _model: &mut Model, _update: Update) {
     
     for (regular_particles, force) in  zip(_model.regular_particles_mut(), resultant_force) {
         regular_particles.apply_force(&force);
-        regular_particles.update();
     }
 
+    for regular_particle in _model.regular_particles_mut() {
+        regular_particle.update();
+    }
 }
 
 fn view(app: &App, _model: &Model, frame: Frame) {
@@ -58,8 +60,8 @@ fn view(app: &App, _model: &Model, frame: Frame) {
     // Render all regular particles
     for particle in _model.regular_particles() {
         draw.ellipse().color(BLACK)
-            .w(10.0 * particle.mass())
-            .h(10.0 * particle.mass())
+            .w(1.0 * particle.mass())
+            .h(1.0 * particle.mass())
             .x(particle.position().x)
             .y(particle.position().y);
     }

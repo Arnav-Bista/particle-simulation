@@ -17,11 +17,11 @@ impl Vec2 {
         }
     }
 
-    pub fn new_random(x_range: Range<f32>, y_range: Range<f32>) -> Self {
+    pub fn new_random(x_range: &Range<f32>, y_range: &Range<f32>) -> Self {
         let mut rng = rand::thread_rng();
         Self {
-            x: rng.gen_range(x_range),
-            y: rng.gen_range(y_range)
+            x: rng.gen_range(x_range.clone()),
+            y: rng.gen_range(y_range.clone())
         }
     }
 
@@ -30,7 +30,7 @@ impl Vec2 {
     }
 
     pub fn get_angle(&self) -> f32 {
-        let acute_angle = (self.y / self.x).atan();
+        let acute_angle = (self.y / self.x).atan().abs();
         if self.x >= 0.0 {
             if self.y >= 0.0 {
                 return acute_angle;
